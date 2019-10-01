@@ -1,4 +1,4 @@
-# SRSBO VUE
+# api_main_receiving
 
 ## Project setup
 ```
