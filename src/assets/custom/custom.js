@@ -1,4 +1,4 @@
-let apiUrl = 'http://192.168.0.62:1111/api/'
+let apiUrl = 'http://192.168.0.62:1112/api/'
 export { apiUrl }
 function msgSuccess(title=200, msg="Something wrong in server"){
     new PNotify({

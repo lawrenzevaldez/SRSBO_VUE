@@ -13,7 +13,7 @@
                         <strong>Success!</strong> {{ status }}.
                     </div>
                     <form action="#" method="post" v-on:submit.prevent="submitForm()">
-                        <div v-if="pictureImage == ''" class="form-group">
+                        <!-- <div v-if="pictureImage == ''" class="form-group">
                             <label><strong>Upload Image:</strong></label>
                             <div class="uniform-uploader">
                                 <input type="file" id="file" ref="file" v-on:change="handleFileUpload()" class="form-input-styled form-control">
@@ -23,7 +23,7 @@
                         <div v-if="pictureImage != ''" class="form-group">
                             <label><strong>Upload Image:</strong></label>
                                 <img class="img-responsive img-thumbnail" :src="pictureImage">
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <label><strong>Delivery Name:</strong></label>
@@ -105,9 +105,10 @@ export default {
             this.isDisabled = true
             this.isDisabled2 = true
             let formData = new FormData()
-            if (this.file == "") {
-                return msgError(401, "Invoice file is required")
-            } else if(this.delivery_name == "") {
+            // if (this.file == "") {
+            //     return msgError(401, "Invoice file is required")
+            // } else 
+            if(this.delivery_name == "") {
                 return msgError(401, "Delivery name is required")
             } else if(this.plate_number == "") {
                 return msgError(401, "Plate number is required")
@@ -115,7 +116,7 @@ export default {
 
             formData.append('rs_id', this.rs_id)
             formData.append('rs_action', this.rs_action)
-            formData.append('file', this.file)
+            // formData.append('file', this.file)
             formData.append('deliveryName', this.delivery_name)
             formData.append('plateNumber', this.plate_number)
             formData.append('user_id', this.$session.get('user_id'))
@@ -145,14 +146,14 @@ export default {
                 if(result) {
                     if(result.data.picture == '') {
                         let data = result.data
-                        this.pictureImage = data.picture
+                        // this.pictureImage = data.picture
                         this.delivery_name = data.deliveryName
                         this.plate_number = data.plateNumber
                     }
                     else
                     {
                         let data = result.data
-                        this.pictureImage = data.picture
+                        // this.pictureImage = data.picture
                         this.delivery_name = data.deliveryName
                         this.plate_number = data.plateNumber
                         this.isReadonly = true
