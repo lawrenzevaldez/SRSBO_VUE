@@ -10,8 +10,8 @@ module.exports = {
     ]
   },
   devServer: {
-    host: 'localhost',
-    port: 1112, // CHANGE YOUR PORT HERE!
+    host: '192.168.107.100',
+    port: 1111, // CHANGE YOUR PORT HERE!
     https: false,
     hotOnly: false,
   },

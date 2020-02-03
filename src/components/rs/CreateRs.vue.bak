@@ -22,9 +22,9 @@
                     <tbody>
                         <tr v-for="(row, i) in list_rms_items" :key="i">
                             <td>
-                                    <b>SUPPLIER NAME: {{ row.supplier_name }} <button class="btn btn-primary" v-on:click="show(row.count_vendor, row.rs_id, row.supplier_code)" v-if="row.count_vendor.length != '1'">CHANGE</button><br>
-                                    ITEM: {{ row.item_name }}<br>
-                                    QTY: {{ row.qty }}<br>
+                                <b>{{ row.supplier_name }}<br>
+                                {{ row.item_name }}<br>
+                                {{ row.qty }}<br>
                                 UOM: {{ row.uom }} <br>
                                 PRICE: {{ row.price }} <br>
                                 AMOUNT: {{ row.qty * row.price }} <br>
@@ -63,33 +63,15 @@
             </div>
         </div>
     </div>
-        <!-- CHANGE SUPPLIER -->
-        <modal name="changeSupplierModal" @before-open="beforeOpen" :height="150">
-            <div class="row center-block">
-                <div class="col-md-12" style="padding-top:8px;">
-                    <form>
-                        <div class="form-group">
-                            <label for="sel1" class="col-md-2">Supplier :</label>
-                            <select v-model="supplierCodeChange" class="form-control col-md-8" id="sel1" v-on:change="updateSupplier(supplierCodeChange, ChangeRs_id)">
-                                <option disabled selected>-- Change Supplier --</option>
-                                <option v-for="(rows, i) in list_of_suppliers" :key="i" :value="rows.VendorCode">{{ rows.supplierName }}</option>
-                            </select>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 text-right" style="margin-top: 15px;">
-                                <button type="button" class="btn btn-default" @click="hide()" style="margin-right: 5px;">Cancel</button>
-                                <button type="button" class="btn btn-success">Save</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </modal>
-        <!-- ./ CHANGE SUPPLIER -->
+  
+        
     </div>
 
 
 </template>
+<script>
+
+</script>
 <script>
 import axios from 'axios';
 import { msgError, msgSuccess, tokenApi, apiUrl } from './../../assets/custom/custom.js'
@@ -101,19 +83,13 @@ export default {
            p_barcode: '',
            p_uom: '',
            p_qty: 1,
-           temp_qty : 0,
            list_uom: [],
            list_rms_items: [],
            loading_uom: false,
            loading_barcode: false,
            loading_deletingrs: false,
            postrs_no: '',
-           loading_postrs_no: false,
-           //UPDATE SUPPLIER
-           list_of_suppliers: [],
-           ChangeSupplierCode: '',
-           ChangeRs_id: '',
-           supplierCodeChange: '',
+           loading_postrs_no: false
         }
     },
     computed: {
@@ -166,7 +142,7 @@ export default {
                 }
                 let result = await axios.get(apiUrl+'purchaser/rs/fetch_rms_items', query)
                 let data   = result.data
-                this.list_rms_items = data.items
+                this.list_rms_items = data.rms_items
 
             } catch (error) {
                 await this.handdleError(error)
@@ -227,43 +203,8 @@ export default {
                     this.fetch_rms_items()
 				}
 			})
-        },
-        async show(listSuppliers, rs_id, supplier_code) {
-            this.$modal.show('changeSupplierModal', { listSupplier: listSuppliers, ChangeRs_id: rs_id, supplierCode: supplier_code })
-        },
-        async hide() {
-            this.$modal.hide('changeSupplierModal')
-        },
-        async beforeOpen (event) {
-            this.list_of_suppliers = []
-            this.ChangeSupplierCode = ''
-            this.ChangeRs_id = ''
-            this.list_of_suppliers = event.params.listSupplier
-            this.ChangeSupplierCode = event.params.supplierCode
-            this.ChangeRs_id = event.params.ChangeRs_id
-        },
-        async updateSupplier(supplierCode, rsId) {
-            try {
-                let params = {
-                    supplierCode: supplierCode,
-                    rs_id: rsId,
-                    user_id: this.$session.get('user_id')
         }
 
-                let result = await axios.post(apiUrl+'purchaser/rs/updateSupplier', params, tokenApi())
-                .then(async (response) => {
-                    msgSuccess(200, response.data.message, "Success")
-                    this.$modal.hide('changeSupplierModal')
-                    this.fetch_rms_items()
-                })
-                .catch(async (response) => {
-                    msgError(401, response)
-                })
-                
-            } catch (error) {
-                await this.handdleError(error)
-            }
-        }
     }
 }
 

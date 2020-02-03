@@ -8,14 +8,13 @@ import LoadScript from 'vue-plugin-load-script';
 import VueSession from 'vue-session'
 import VModal from 'vue-js-modal'
 
-
-let apiUrl = 'http://192.168.0.62:1112/api/'
+let apiUrl = 'http://192.168.107.100:2222/api/'
 global.apiUrl = apiUrl
 
 Vue.config.productionTip = false
 Vue.use(LoadScript)
-Vue.use(VModal)
 Vue.use(VueSession)
+Vue.use(VModal)
 Vue.filter('date', function(value) {
   return moment(value).format('YYYY-MM-DD')
 })
