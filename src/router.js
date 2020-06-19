@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Dashboard from './components/Dashboard.vue'
 import CreateRs from './components/rs/CreateRs.vue'
 import BoInquiry from './components/bo_inquiry/BoInquiry.vue'
 import RsInquiry from './components/rs_inquiry/RsInquiry.vue'

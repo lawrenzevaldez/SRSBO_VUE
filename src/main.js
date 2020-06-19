@@ -8,7 +8,7 @@ import LoadScript from 'vue-plugin-load-script';
 import VueSession from 'vue-session'
 import VModal from 'vue-js-modal'
 
-let apiUrl = 'http://192.168.107.100:2222/api/'
+let apiUrl = 'http://192.168.115.100:1112/api/'
 global.apiUrl = apiUrl
 
 Vue.config.productionTip = false
